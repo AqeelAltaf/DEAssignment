@@ -1,0 +1,6 @@
+{
+    "server": "localhost",
+    "database": "AdventureWorks2019",
+    "username": "sa",
+    "password": "yourStrong(!)Password"
+}

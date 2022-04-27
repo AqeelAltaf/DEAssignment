@@ -1,0 +1,67 @@
+drop table if exists customer cascade ;
+CREATE TABLE Customer
+(
+  Email VARCHAR NOT NULL,
+  Brand VARCHAR NOT NULL,
+  Country VARCHAR NOT NULL,
+  Status VARCHAR NOT NULL,
+  customer_id SERIAL NOT NULL,
+  PRIMARY KEY (customer_id )
+);
+
+drop table if exists payment_method cascade ;
+CREATE TABLE payment_method
+(
+  Name VARCHAR NOT NULL,
+  Type VARCHAR NOT NULL,
+  payment_method_id SERIAL NOT NULL,
+  PRIMARY KEY (payment_method_id)
+);
+
+drop table if exists payment_status cascade;
+CREATE TABLE payment_status
+(
+  Name VARCHAR NOT NULL,
+  Description VARCHAR NOT NULL,
+  payment_status_id SERIAL NOT NULL,
+  PRIMARY KEY (payment_status_id )
+);
+
+drop table if exists provider cascade;
+CREATE TABLE provider
+(
+  Name VARCHAR NOT NULL,
+  product_name VARCHAR ,
+  provider_id SERIAL NOT NULL,
+  PRIMARY KEY (provider_id)
+);
+
+drop table if exists Deposit cascade ;
+CREATE TABLE Deposit
+(
+  calendar_date INT NOT NULL,
+  amount_eur NUMERIC NOT NULL,
+  deposit_id SERIAL NOT NULL,
+  payment_status_id INT ,
+  payment_method_id INT ,
+  customer_id INT ,
+  FOREIGN KEY (payment_status_id) REFERENCES payment_status(payment_status_id),
+  FOREIGN KEY (payment_method_id) REFERENCES payment_method(payment_method_id),
+  FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+);
+drop table if exists gameplay cascade;
+CREATE TABLE Gameplay
+(
+  calendar_date INT NOT NULL,
+  device_name VARCHAR NOT NULL,
+  rounds INT NOT NULL,
+  turnover_EUR NUMERIC NOT NULL,
+  GameWin_EUR NUMERIC NOT NULL,
+  bonus_cost NUMERIC ,
+  gamplay_id SERIAL NOT NULL,
+  customer_id INT ,
+  provider_id INT ,
+  PRIMARY KEY (gamplay_id),
+  FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
+  FOREIGN KEY (provider_id) REFERENCES Provider(provider_id)
+);
